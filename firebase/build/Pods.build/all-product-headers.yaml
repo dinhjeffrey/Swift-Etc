@@ -1,0 +1,33 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [
+    {
+      'type': 'directory',
+      'name': "/Users/Jeffrey/Documents/GitHub/swift/firebase/build/Debug-iphoneos/Pods_firebase.framework/Headers",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "Pods-firebase-umbrella.h",
+          'external-contents': "/Users/Jeffrey/Documents/GitHub/swift/firebase/Pods/Target Support Files/Pods-firebase/Pods-firebase-umbrella.h"
+        },
+        {
+          'type': 'file',
+          'name': "Pods_firebase-Swift.h",
+          'external-contents': "/Users/Jeffrey/Documents/GitHub/swift/firebase/build/Debug-iphoneos/Pods_firebase.framework/Headers/Pods_firebase-Swift.h"
+        }
+      ]
+    },
+    {
+      'type': 'directory',
+      'name': "/Users/Jeffrey/Documents/GitHub/swift/firebase/build/Debug-iphoneos/Pods_firebase.framework/Modules",
+      'contents': [
+        {
+          'type': 'file',
+          'name': "module.modulemap",
+          'external-contents': "/Users/Jeffrey/Documents/GitHub/swift/firebase/build/Pods.build/Debug-iphoneos/Pods-firebase.build/module.modulemap"
+        }
+      ]
+    }
+  ]
+}
