@@ -7,3 +7,13 @@
 //
 
 import Foundation
+
+class Model {
+    
+    static var key = String()
+    
+    func add(num1: Double, num2: Double, closure: (String) -> (String))  {
+        dictionary["storedString"] = closure(Model.key)
+    }
+    var dictionary: [String: String] = ["storedString":"poke"]
+}

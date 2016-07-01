@@ -31,7 +31,7 @@ viewWillDisappear // stop animation and stuff like spinning wheel from viewDidAp
 
 viewDidDisappear // free up something from the network from viewWillAppear
 
-func viewWillLayoutSubviews() and func viewDidLayoutSubviews() // good place for geometry changes. auto layout and constraints occurs inbetween viewWillLayoutSubviews and viewDidLayoutSubviews. Geometry changes mostly in rotation from landscape <--> portrait. Doesn't change when bound changes, system is allowed to call it WHENEVER even if bounds didnt change, like when it draws something, but the bounds haven't changed, it could be called.
+func viewWillLayoutSubviews() and func viewDidLayoutSubviews() // GETS CALLED ALL THE TIME. good place for geometry changes. auto layout and constraints occurs inbetween viewWillLayoutSubviews and viewDidLayoutSubviews. Geometry changes mostly in rotation from landscape <--> portrait. Doesn't change when bound changes, system is allowed to call it WHENEVER even if bounds didnt change, like when it draws something, but the bounds haven't changed, it could be called.
 
 // AUTOROTATION
 
