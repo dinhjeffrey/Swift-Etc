@@ -67,7 +67,77 @@ struct Rect {
 let defaultRect = Rect()
 let memberwiseRect = Rect(origin: Point(x: 2.0, y: 2.0), size: Size(width: 5.0, height: 5.0))
 
+// Methods 
+extension Int {
+    func repetitions(task: () -> Void) {
+        for _ in 0..<self {
+            task()
+        }
+    }
+}
 
+3.repetitions { 
+    print("hello!")
+}
+
+// Mutating Instance Methods
+extension Int {
+    mutating func square() {
+        self = self * self
+    }
+}
+
+var someInt = 3
+someInt.square()
+someInt
+
+// Subscripts
+extension Int {
+    subscript(digitIndex: Int) -> Int {
+        var decimalBase = 1
+        for _ in 0..<digitIndex {
+            decimalBase *= 10
+        }
+        return (self / decimalBase) % 10
+    }
+}
+
+7412354[0]
+33234112[1]
+123123421[2]
+1231[11]
+
+// Nested Types 
+extension Int {
+    enum Kind {
+        case negative, zero, positive
+    }
+    var kind: Kind {
+        switch self {
+        case 0:
+            return .zero
+        case let x where x > 0:
+            return .positive
+        default:
+            return .negative
+        }
+    }
+}
+
+func printIntegerKinds(numbers: [Int]) {
+    for number in numbers {
+        switch number.kind {
+        case .negative:
+            print("- ", terminator: "")
+        case .zero:
+            print("0 ", terminator: "")
+        default:
+            print("+ ", terminator: "")
+        }
+    }
+    print("")
+}
+printIntegerKinds([3, 12, 34, -55, 3, 0, 11, -9, 0])
 
 
 
