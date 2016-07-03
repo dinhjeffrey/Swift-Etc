@@ -4,9 +4,6 @@
  */
 
 
-var dropboxLink = "https://www.dropbox.com/s/krz9q3gzygzvu3h/recordedAudio.wav?dl=0"
+var la: Int
 
-dropboxLink.removeAtIndex(dropboxLink.endIndex.advancedBy(-1))
-dropboxLink.insert("1", atIndex: dropboxLink.endIndex)
-
-print(dropboxLink)
+la.
