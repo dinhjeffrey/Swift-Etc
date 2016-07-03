@@ -24,4 +24,37 @@ func compareThem<T: Comparable>(val1: T, val2: T) -> Bool {
 print(compareThem("a", val2: "b"))
 
 
+// Generic Types
+struct IntStack {
+    var items = [Int]()
+    mutating func push(item: Int) {
+        items.append(item)
+    }
+    mutating func pop() -> Int {
+        return items.removeLast()
+    }
+}
+
+struct Stack<Element> {
+    var items = [Element]()
+    mutating func push(item: Element) {
+        items.append(item)
+    }
+    mutating func pop() -> Element {
+        return items.removeLast()
+    }
+}
+
+var stackOfStrings = Stack<String>()
+stackOfStrings.push("uno")
+
+var stackOfInts = Stack<Int>()
+
+extension Stack {
+    var topItem: Element? {
+        return items.isEmpty ? nil : items[items.count - 1]
+    }
+}
+
+// Type Constraints
 
