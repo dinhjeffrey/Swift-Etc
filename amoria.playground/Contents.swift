@@ -4,6 +4,6 @@
  */
 
 
-var la: Int
+var integer = [1,2,3] // index max is 2
 
-la.
+integer.count - 1
