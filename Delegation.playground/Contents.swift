@@ -16,3 +16,5 @@ Now the View is hooked up to the Controller
 
 This mechanism is found throughout iOS
     However, it was designed pre-closures in Swift. Closures are often a better option
+
+// sometimes iOS uses protocols and sometimes closures, not exact substitutes for each other. Protocol makes it clear what is being delegated and closures are good for error callbacks and multithreading
