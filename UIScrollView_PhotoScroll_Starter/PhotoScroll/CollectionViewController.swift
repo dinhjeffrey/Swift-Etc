@@ -28,11 +28,16 @@ class CollectionViewController: UICollectionViewController {
   private let sectionInsets = UIEdgeInsets(top: 10, left: 5.0, bottom: 10.0, right: 5.0)
   private let photos = ["photo1", "photo2", "photo3", "photo4", "photo5"]
   
+  // This sets the name of the photo to be shown on PhotoCommentViewController when one of the photos is tapped.
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if let cell = sender as? UICollectionViewCell, indexPath = collectionView?.indexPathForCell(cell), zoomedPhotoViewController = segue.destinationViewController as? ZoomedPhotoViewController {
-      zoomedPhotoViewController.photoName = "photo\(indexPath.row + 1)"
+    if let cell = sender as? UICollectionViewCell,
+      indexPath = collectionView?.indexPathForCell(cell),
+      managePageViewController = segue.destinationViewController as? ManagePageViewController {
+      managePageViewController.photos = photos
+      managePageViewController.currentIndex = indexPath.row
     }
   }
+
 }
 
 // MARK: UICollectionViewDataSource
