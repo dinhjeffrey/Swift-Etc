@@ -28,6 +28,7 @@ class ScrollViewController: UIViewController {
         // To support zooming, you must set a delegate for your scroll view. The delegate object must conform to the UIScrollViewDelegate protocol. That delegate class must implement the viewForZoomingInScrollView() method and return the view to zoom.
         scrollView.delegate = self
         setZoomScale()
+        setupGestureRecognizer()
     }
     
     
@@ -62,5 +63,21 @@ extension ScrollViewController: UIScrollViewDelegate {
         
         scrollView.contentInset = UIEdgeInsets(top: verticalPadding, left: horizontalPadding, bottom: verticalPadding, right: horizontalPadding)
     }
+   // For our app, we’ll implement the double-tap to zoom up to maximum if it’s currently at the minimum zoom scale, otherwise the double-tap will zoom it down to the minimum, this is similar to what you get on the Photos app.
+    func setupGestureRecognizer() {
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(ScrollViewController.handleDoubleTap(_:)))
+        doubleTap.numberOfTapsRequired = 2
+        scrollView.addGestureRecognizer(doubleTap)
+    }
+    func handleDoubleTap(recognizer: UITapGestureRecognizer) {
+        if (scrollView.zoomScale > scrollView.minimumZoomScale) {
+            scrollView.setZoomScale(scrollView.minimumZoomScale, animated: true)
+        } else {
+            scrollView.setZoomScale(scrollView.maximumZoomScale, animated: true)
+        }
+    }
+    
+
+    
 }
 
