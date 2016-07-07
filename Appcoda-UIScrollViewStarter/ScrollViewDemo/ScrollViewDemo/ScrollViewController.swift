@@ -25,9 +25,35 @@ class ScrollViewController: UIViewController {
         scrollView.contentOffset = CGPoint(x: 1000, y: 450)
         scrollView.addSubview(imageView)
         view.addSubview(scrollView)
+        // You should also specify the amount the user can zoom in and out. You do this by setting values of the scroll view’s minimumZoomScale and maximumZoomScale properties. Both of these are set to 1.0 by default.
+        scrollView.delegate = self
         
+//        scrollView.minimumZoomScale = 0.1
+//        scrollView.maximumZoomScale = 4.0
+//        scrollView.zoomScale = 1.0
+        // In the above, we set the minimumZoomScale to 0.1 which results in a pretty small image that leaves a lot of blank space on the screen. In landscape mode, the empty space next to the image is even larger. We want to make the image ‘Aspect Fit’ the scroll view so that it takes up as much space on the scroll view as it can while still showing the full image.
+        setZoomScale()
     }
+    
+    
 
 
+}
+
+// To support zooming, you must set a delegate for your scroll view. The delegate object must conform to the UIScrollViewDelegate protocol. That delegate class must implement the viewForZoomingInScrollView() method and return the view to zoom.
+extension ScrollViewController: UIScrollViewDelegate {
+    
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        return imageView
+    }
+    func setZoomScale() {
+        let imageViewSize = imageView.bounds.size
+        let scrollViewSize = scrollView.bounds.size
+        let widthScale = scrollViewSize.width / imageViewSize.width
+        let heightScale = scrollViewSize.height / imageViewSize.height
+        
+        scrollView.minimumZoomScale = min(widthScale, heightScale)
+        scrollView.zoomScale = 1.0
+    }
 }
 
