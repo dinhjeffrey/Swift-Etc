@@ -79,11 +79,8 @@
 		5F09F5401B254FB100205B06 /* NestedScrollViews */ = {
 			isa = PBXGroup;
 			children = (
-				5F09F5431B254FB100205B06 /* AppDelegate.swift */,
 				5F09F5451B254FB100205B06 /* ViewController.swift */,
 				5F09F5471B254FB100205B06 /* Main.storyboard */,
-				5F09F54A1B254FB100205B06 /* Images.xcassets */,
-				5F09F54C1B254FB100205B06 /* LaunchScreen.xib */,
 				5F09F5631B25518200205B06 /* image.png */,
 				5F09F5411B254FB100205B06 /* Supporting Files */,
 			);
@@ -93,6 +90,9 @@
 		5F09F5411B254FB100205B06 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5F09F5431B254FB100205B06 /* AppDelegate.swift */,
+				5F09F54A1B254FB100205B06 /* Images.xcassets */,
+				5F09F54C1B254FB100205B06 /* LaunchScreen.xib */,
 				5F09F5421B254FB100205B06 /* Info.plist */,
 			);
 			name = "Supporting Files";
