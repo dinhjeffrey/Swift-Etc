@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="wrh-Yl-qjH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="z82-Mk-oDe">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -23,5 +23,48 @@
             </objects>
             <point key="canvasLocation" x="310" y="361"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="Rga-tl-zc0">
+            <objects>
+                <viewController id="z82-Mk-oDe" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8tv-Me-bXE"/>
+                        <viewControllerLayoutGuide type="bottom" id="JhX-Ek-T98"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IoQ-c0-54M">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.5" maximumZoomScale="4" translatesAutoresizingMaskIntoConstraints="NO" id="iuw-Cl-mRY">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image.png" translatesAutoresizingMaskIntoConstraints="NO" id="K6r-iq-7jP">
+                                        <rect key="frame" x="0.0" y="0.0" width="2000" height="1500"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="K6r-iq-7jP" firstAttribute="top" secondItem="iuw-Cl-mRY" secondAttribute="top" id="Eqp-9E-f0i"/>
+                                    <constraint firstItem="K6r-iq-7jP" firstAttribute="leading" secondItem="iuw-Cl-mRY" secondAttribute="leading" id="MGi-Tk-jCh"/>
+                                    <constraint firstAttribute="bottom" secondItem="K6r-iq-7jP" secondAttribute="bottom" id="irv-gE-YQ4"/>
+                                    <constraint firstAttribute="trailing" secondItem="K6r-iq-7jP" secondAttribute="trailing" id="tiV-bf-pzD"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="JhX-Ek-T98" firstAttribute="top" secondItem="iuw-Cl-mRY" secondAttribute="bottom" id="NW5-1E-OjW"/>
+                            <constraint firstAttribute="trailing" secondItem="iuw-Cl-mRY" secondAttribute="trailing" id="PGl-7p-ehG"/>
+                            <constraint firstItem="iuw-Cl-mRY" firstAttribute="leading" secondItem="IoQ-c0-54M" secondAttribute="leading" id="bhw-n8-PsG"/>
+                            <constraint firstItem="iuw-Cl-mRY" firstAttribute="top" secondItem="IoQ-c0-54M" secondAttribute="top" id="ue6-HT-kBN"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vMQ-V3-qhB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="300" y="1028"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="image.png" width="2000" height="1500"/>
+    </resources>
 </document>
