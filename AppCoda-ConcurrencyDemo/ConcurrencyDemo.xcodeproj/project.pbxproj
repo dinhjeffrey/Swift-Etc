@@ -35,6 +35,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		008A63B71D2F1FEE000E36C4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DA0283901BF90DA900AA4DAC /* AppDelegate.swift */,
+				DA0283971BF90DA900AA4DAC /* Assets.xcassets */,
+				DA0283991BF90DA900AA4DAC /* LaunchScreen.storyboard */,
+				DA02839C1BF90DA900AA4DAC /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		DA0283841BF90DA900AA4DAC = {
 			isa = PBXGroup;
 			children = (
@@ -54,12 +65,9 @@
 		DA02838F1BF90DA900AA4DAC /* ConcurrencyDemo */ = {
 			isa = PBXGroup;
 			children = (
-				DA0283901BF90DA900AA4DAC /* AppDelegate.swift */,
+				008A63B71D2F1FEE000E36C4 /* Supporting Files */,
 				DA0283921BF90DA900AA4DAC /* ViewController.swift */,
 				DA0283941BF90DA900AA4DAC /* Main.storyboard */,
-				DA0283971BF90DA900AA4DAC /* Assets.xcassets */,
-				DA0283991BF90DA900AA4DAC /* LaunchScreen.storyboard */,
-				DA02839C1BF90DA900AA4DAC /* Info.plist */,
 			);
 			path = ConcurrencyDemo;
 			sourceTree = "<group>";
@@ -283,6 +291,7 @@
 				DA0283A11BF90DA900AA4DAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
