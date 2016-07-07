@@ -21,6 +21,8 @@ class ScrollViewController: UIViewController {
         scrollView.backgroundColor = UIColor.blackColor()
         scrollView.contentSize = imageView.bounds.size
         scrollView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+        // This is because the scroll view’s bound origin is set to (0,0) which is at the top left corner. If you want to change the position of the content shown when the app launches, then you have to change the scroll views’s bound origin. Since setting this position is so common when working with scroll views, UIScrollView has a contentOffset property that you can change which will have the same effect as changing the bounds origin.
+        scrollView.contentOffset = CGPoint(x: 1000, y: 450)
         scrollView.addSubview(imageView)
         view.addSubview(scrollView)
         
