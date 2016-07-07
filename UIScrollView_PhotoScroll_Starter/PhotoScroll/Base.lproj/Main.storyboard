@@ -106,7 +106,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RSI-tT-12r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2306" y="823"/>
+            <point key="canvasLocation" x="2571" y="872"/>
         </scene>
         <!--Photo Comment View Controller-->
         <scene sceneID="dsG-JT-x2E">
@@ -126,7 +126,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Dc-Dp-nq4" userLabel="Container View">
                                         <rect key="frame" x="0.0" y="0.0" width="340" height="500"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo1" translatesAutoresizingMaskIntoConstraints="NO" id="UVV-xi-rOO">
+                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo1" translatesAutoresizingMaskIntoConstraints="NO" id="UVV-xi-rOO">
                                                 <rect key="frame" x="0.0" y="0.0" width="340" height="300"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
@@ -184,6 +184,7 @@
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="YRw-qH-Qlr" appends="YES" id="nyT-YS-YMS"/>
+                            <outletCollection property="gestureRecognizers" destination="qfO-Ri-O9Y" appends="YES" id="cAS-RZ-bsQ"/>
                         </connections>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -192,12 +193,18 @@
                         <outlet property="imageView" destination="UVV-xi-rOO" id="nSj-qY-XS4"/>
                         <outlet property="nameTextField" destination="DlM-mH-4i5" id="egp-yQ-ry3"/>
                         <outlet property="scrollView" destination="cUS-uQ-knr" id="9EG-9c-a7C"/>
+                        <segue destination="Tou-yP-mjQ" kind="showDetail" identifier="zooming" id="qgy-PH-fzl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vpy-Mn-6jp" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="YRw-qH-Qlr">
                     <connections>
                         <action selector="hideKeyboard:" destination="stS-Lr-1yw" id="AVm-sL-CmZ"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="qfO-Ri-O9Y">
+                    <connections>
+                        <action selector="openZoomingController:" destination="stS-Lr-1yw" id="BOJ-rz-dOt"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -209,7 +216,7 @@
                 <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" pageSpacing="8" navigationOrientation="horizontal" spineLocation="none" id="cJn-ah-Q3A" customClass="ManagePageViewController" customModule="PhotoScroll" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AAI-o8-bOz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2086" y="281"/>
+            <point key="canvasLocation" x="2250" y="137"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uzF-pX-Zex">

@@ -20,7 +20,20 @@ class PhotoCommentViewController: UIViewController {
   }
   internal var photoName: String!
   internal var photoIndex: Int!
+  @IBAction func openZoomingController(sender: UITapGestureRecognizer) {
+    self.performSegueWithIdentifier("zooming", sender: nil)
+  }
   
+  override internal func prepareForSegue(segue: UIStoryboardSegue,
+                                       sender: AnyObject?) {
+    if let id = segue.identifier,
+      zoomedPhotoViewController = segue.destinationViewController as? ZoomedPhotoViewController {
+      if id == "zooming" {
+        zoomedPhotoViewController.photoName = photoName
+      }
+    }
+  }
+
   
  var fixKeyboard = false
   
