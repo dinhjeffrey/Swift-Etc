@@ -17,7 +17,7 @@ class ViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         foreground.delegate = self
     }
-    // In the above code, we get the height of the foreground and calculate by how much the foreground has been scrolled. We then take this value and multiply it with the background’s height and use this in setting the background’s contentOffset which will result with the background moving a little bit faster than the foreground, each time the foreground is scrolled. Run the app and you’ll see the parallax effect created by this.
+    // In the above code, we get the height of the foreground and calculate by how much the foreground has been scrolled. We then take this value and multiply it with the background’s height and use this in setting the background’s contentOffset which will result with the background moving a little bit faster than the foreground, each time the foreground is scrolled. Run the app and you’ll see the parallax effect created by this.¢
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let foregroundHeight = foreground.contentSize.height - CGRectGetHeight(foreground.bounds)
         let percentageScroll = foreground.contentOffset.y / foregroundHeight
