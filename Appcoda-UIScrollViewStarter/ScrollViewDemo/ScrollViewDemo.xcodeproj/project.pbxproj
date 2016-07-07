@@ -79,11 +79,8 @@
 		5F663E261B1EDDEC00491AA9 /* ScrollViewDemo */ = {
 			isa = PBXGroup;
 			children = (
-				5F663E291B1EDDEC00491AA9 /* AppDelegate.swift */,
 				5F663E2B1B1EDDEC00491AA9 /* ScrollViewController.swift */,
 				5F663E2D1B1EDDEC00491AA9 /* Main.storyboard */,
-				5F663E301B1EDDED00491AA9 /* Images.xcassets */,
-				5F663E321B1EDDED00491AA9 /* LaunchScreen.xib */,
 				5F663E491B1EEC6900491AA9 /* image.png */,
 				5F663E271B1EDDEC00491AA9 /* Supporting Files */,
 			);
@@ -93,6 +90,9 @@
 		5F663E271B1EDDEC00491AA9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5F663E291B1EDDEC00491AA9 /* AppDelegate.swift */,
+				5F663E301B1EDDED00491AA9 /* Images.xcassets */,
+				5F663E321B1EDDED00491AA9 /* LaunchScreen.xib */,
 				5F663E281B1EDDEC00491AA9 /* Info.plist */,
 			);
 			name = "Supporting Files";
