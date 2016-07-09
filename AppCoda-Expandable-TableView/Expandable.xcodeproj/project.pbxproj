@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		008A526E1D31BF5D00BC151F /* CellDescriptor.plist in Resources */ = {isa = PBXBuildFile; fileRef = 008A526D1D31BF5D00BC151F /* CellDescriptor.plist */; };
+		008A52701D31C04600BC151F /* CellDescriptor.plist in Resources */ = {isa = PBXBuildFile; fileRef = 008A526F1D31C04600BC151F /* CellDescriptor.plist */; };
 		C0981DCE1BE13E9000D4367F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0981DCD1BE13E9000D4367F /* AppDelegate.swift */; };
 		C0981DD01BE13E9000D4367F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0981DCF1BE13E9000D4367F /* ViewController.swift */; };
 		C0981DD31BE13E9000D4367F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0981DD11BE13E9000D4367F /* Main.storyboard */; };
@@ -23,7 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		008A526D1D31BF5D00BC151F /* CellDescriptor.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = CellDescriptor.plist; path = ../../../../../../../Downloads/CellDescriptor.plist; sourceTree = "<group>"; };
+		008A526F1D31C04600BC151F /* CellDescriptor.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CellDescriptor.plist; sourceTree = "<group>"; };
 		C0981DCA1BE13E9000D4367F /* Expandable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Expandable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0981DCD1BE13E9000D4367F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0981DCF1BE13E9000D4367F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -57,8 +57,8 @@
 				C0981DCD1BE13E9000D4367F /* AppDelegate.swift */,
 				C0981DD41BE13E9000D4367F /* Assets.xcassets */,
 				C0981DD61BE13E9000D4367F /* LaunchScreen.storyboard */,
+				008A526F1D31C04600BC151F /* CellDescriptor.plist */,
 				C0981DD91BE13E9000D4367F /* Info.plist */,
-				008A526D1D31BF5D00BC151F /* CellDescriptor.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -162,7 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0981DE81BE1414900D4367F /* SliderCell.xib in Resources */,
-				008A526E1D31BF5D00BC151F /* CellDescriptor.plist in Resources */,
+				008A52701D31C04600BC151F /* CellDescriptor.plist in Resources */,
 				C0981DD81BE13E9000D4367F /* LaunchScreen.storyboard in Resources */,
 				C0981DD51BE13E9000D4367F /* Assets.xcassets in Resources */,
 				C0981DEA1BE1414900D4367F /* TextfieldCell.xib in Resources */,
