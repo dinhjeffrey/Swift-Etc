@@ -203,6 +203,26 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             for i in (indexOfTappedRow + 1)...(indexOfTappedRow + (cellDescriptors[indexPath.section][indexOfTappedRow]["additionalRows"] as! Int)) {
                 cellDescriptors[indexPath.section][i].setValue(shouldExpandAndShowSubRows, forKey: "isVisible")
             }
+        } else {
+            /*
+             Inside the inner if case we’ll perform four distinct tasks:
+             
+             1. We’ll find the row index of the top-level cell that is supposed to be the “parent” cell of the tapped one. In truth, we’ll perform a search towards the beginning of the cell descriptors and the first top-level cell that is spotted (the first cell that is expandable) is the one we want.
+             2. We’ll set the displayed value of the selected cell as the text of the textLabel label of the top-level cell.
+             3. We’ll mark the top-level cell as not expanded.
+             4. We’ll mark all the sub-cells of the found top-level one as not visible.
+             */
+            if cellDescriptors[indexPath.section][indexOfTappedRow]["cellIdentifier"] as! String == "idCellValuePicker" {
+                var indexOfParentCell: Int!
+                for var i = indexOfTappedRow - 1; i >= 0; --i {
+                    if cellDescriptors[indexPath.section][i]["isExpandable"] as! Bool == true {
+                        indexOfParentCell = i
+                        break
+                    }
+                }
+                cellDescriptors[indexPath.section][indexOfParentCell].setValue((tblExpandable.cellForRowAtIndexPath(indexPath) as! CustomCell).textLabel?.text, forKey: "primaryTitle")
+                cellDescriptors[indexPath.section][indexOfParentCell].setValue(false, forKey: "isExpanded")
+            }
         }
         getIndicesOfVisibleRows()
         tblExpandable.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: UITableViewRowAnimation.Fade)
