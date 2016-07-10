@@ -186,10 +186,46 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return cell
     }
     
-    
+    // Once the above flag gets its value and properly indicates whether the cell should expand or not, it’s our duty to save that value to the cell descriptors collection, or in other words, to update the cellDescriptors array. We want to update the “isExpanded” property of the selected cell, so it will behave correctly in subsequent tapping (to collapse if it’s expanded, and to expand if it’s collapsed).
+    // There’s one really important detail we should not forget at this point: If you recall, there’s one property that specifies whether a cell should be displayed or not, named “isVisible” and exists in the description of each cell. This property must be changed in accordance to the above flag, so the additional invisible rows to become visible when the cell is expanded, and to become hidden again when the cell collapse. 
+    // we just changed the “isVisible” value of some cells, and that means that the total number of visible rows have changed as well. So, before we reload the tableview, we must ask the app to find the index values of the visible rows from scratch
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let indexOfTappedRow = visibleRowsPerSection[indexPath.section][indexPath.row]
         
+        if cellDescriptors[indexPath.section][indexOfTappedRow]["isExpandable"] as! Bool == true {
+            var shouldExpandAndShowSubRows = false
+            if cellDescriptors[indexPath.section][indexOfTappedRow]["isExpanded"] as! Bool == false {
+                // In this case the cell should expand.
+                shouldExpandAndShowSubRows = true
+            }
+            cellDescriptors[indexPath.section][indexOfTappedRow].setValue(shouldExpandAndShowSubRows, forKey: "isExpanded")
+            
+            for i in (indexOfTappedRow + 1)...(indexOfTappedRow + (cellDescriptors[indexPath.section][indexOfTappedRow]["additionalRows"] as! Int)) {
+                cellDescriptors[indexPath.section][i].setValue(shouldExpandAndShowSubRows, forKey: "isVisible")
+            }
+        }
+        getIndicesOfVisibleRows()
+        tblExpandable.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: UITableViewRowAnimation.Fade)
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 }
 
