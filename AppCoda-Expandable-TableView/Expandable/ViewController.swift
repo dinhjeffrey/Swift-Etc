@@ -100,12 +100,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     // MARK: UITableView Delegate and Datasource Functions
-    
-    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if cellDescriptors != nil {
             return cellDescriptors.count
-        } else {
+        }
+        else {
             return 0
         }
     }
@@ -129,7 +128,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     // There’s something that I’d like to underline here: For first time we make use of the getCellDescriptorForIndexPath: function that was implemented earlier in this part. We need to get the proper cell descriptor, because right next it’s necessary to fetch the “cellIdentifier” property, and depending on its value to specify the row height. You can verify the height values for each type of cell in the respective xib files (or just take them as granted as shown here)
-    func tableView(tableView: UITableView, heightForRowAtIndex indexPath: NSIndexPath) -> CGFloat {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         let currentCellDescriptor = getCellDescriptorForIndexPath(indexPath)
         
         switch currentCellDescriptor["cellIdentifier"] as! String {
@@ -185,13 +184,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         return cell
-    }
-    
-    
-    
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 0.0
     }
     
     
