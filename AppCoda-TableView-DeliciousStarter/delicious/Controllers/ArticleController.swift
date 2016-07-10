@@ -25,6 +25,7 @@ class ArticleController: UITableViewController {
         tableView.estimatedRowHeight = 500.0
         
         initializeArticle()
+        addFooterView()
     }
     
     func initializeArticle() {
@@ -120,6 +121,30 @@ class ArticleController: UITableViewController {
             cellForRow = cell
         }
         return cellForRow
+    }
+    
+    
+    func addFooterView() {
+        let  footerView = NSBundle.mainBundle().loadNibNamed("ArticleFooterView", owner: self, options: nil)[0] as! ArticleFooterView
+        footerView.frame = CGRectMake(0, 0, screenWidth, 486)
+        
+        footerView.separatorHeight.constant = 0.6
+        
+        if let type = currentArticle?.mealType, price = currentArticle?.mealPrice {
+            footerView.mealTypeLabel.text = type
+            footerView.mealPriceLabel.text = "HK$ \(price)"
+        }
+        
+        if let name = currentArticle?.restaurantName, address = currentArticle?.restaurantAddress {
+            footerView.restaurantNameLabel.text = name
+            footerView.restaurantAddressLabel.text = address
+        }
+        
+        if let name = currentArticle?.authorDisplayName, username = currentArticle?.authorUsername {
+            footerView.displayNameLabel.text = name
+            footerView.usernameLabel.text = "@\(username)"
+        }
+        tableView.tableFooterView = footerView
     }
  
     
