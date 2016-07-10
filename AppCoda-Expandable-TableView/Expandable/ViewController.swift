@@ -5,12 +5,58 @@
 //  Created by Gabriel Theodoropoulos on 28/10/15.
 //  Copyright © 2015 Appcoda. All rights reserved.
 //
+/* Summary 
+ In the previous parts of this tutorial I presented you an approach for making expandable tableviews where the main characteristic of it is the description of all cells using specific properties in a property list file (plist). I showed how you can handle this cell description list in code when displaying, expanding and selecting cells; additionally I gave you a way to directly update it with the data entered by the user. Even though a form like the fake one in our demo app could exist in a real app, there are still things needed to be done before it stands as a complete component (for example, save the cell description list back to file). However, that’s out of our goal here; what we initially wanted was to implement an expandable tableview with cells that appear or hide on demand, and that’s what we eventually did.
+ */
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomCellDelegate {
     
-    
+    func dateWasSelected(selectedDateString: String) {
+        let dateCellSection = 0
+        let dateCellRow = 3
+        
+        cellDescriptors[dateCellSection][dateCellRow].setValue(selectedDateString, forKey: "primaryTitle")
+        tblExpandable.reloadData()
+    }
+    func maritalStatusSwitchChangedState(isOn: Bool) {
+        let martialSwitchCellSection = 0
+        let martialSwitchCellRow = 6
+        
+        let valueToStore = (isOn) ? "true" : "false"
+        let valueToDisplay = (isOn) ? "Married" : "Single"
+        
+        cellDescriptors[martialSwitchCellSection][martialSwitchCellRow].setValue(valueToStore, forKey: "value")
+        cellDescriptors[martialSwitchCellSection][martialSwitchCellRow - 1].setValue(valueToDisplay, forKey: "primaryTitle")
+        tblExpandable.reloadData()
+    }
+    func textfieldTextWasChanged(newText: String, parentCell: CustomCell) {
+        let parentCellIndexPath = tblExpandable.indexPathForCell(parentCell)
+        
+        let currentFullname = cellDescriptors[0][0]["primaryTitle"] as! String
+        let fullnameParts = currentFullname.componentsSeparatedByString(" ")
+        
+        var newFullname = ""
+        
+        if parentCellIndexPath?.row == 1 {
+            if fullnameParts.count == 2 {
+                newFullname = "\(newText) \(fullnameParts[1])"
+            } else {
+                newFullname = newText
+            }
+        } else {
+            newFullname = "\(fullnameParts[0]) \(newText)"
+        }
+        cellDescriptors[0][0].setValue(newFullname, forKey: "primaryTitle")
+        tblExpandable.reloadData()
+    }
+    func sliderDidChangeValue(newSliderValue: String) {
+        cellDescriptors[2][0].setValue(newSliderValue, forKey: "primaryTitle")
+        cellDescriptors[2][1].setValue(newSliderValue, forKey: "value")
+        
+        tblExpandable.reloadSections(NSIndexSet(index: 2), withRowAnimation: UITableViewRowAnimation.None)
+    }
     
     
     
@@ -182,7 +228,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let value = currentCellDescriptor["value"] as! String
             cell.slExperienceLevel.value = (value as NSString).floatValue
         }
-        
+        cell.delegate = self
         return cell
     }
     
