@@ -12,74 +12,6 @@ import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    func parseCSV (contentsOfURL: NSURL, encoding: NSStringEncoding, error: NSErrorPointer) -> [(name:String, detail:String, price: String)]? {
-        // Load the CSV file and parse it
-        let delimiter = ","
-        var items:[(name:String, detail:String, price: String)]?
-        
-        do {
-            let content = try String(contentsOfURL: contentsOfURL, encoding: encoding)
-            print(content)
-            let lines: [String] = content.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet()) as [String]
-            
-            for line in lines {
-                var values: [String] = []
-                if line != "" {
-                    // For a line with double quotes
-                    // we use NSScanner to perform the parsing
-                    if line.rangeOfString("\"") != nil {
-                        var textToScan: String = line
-                        var value: NSString?
-                        var textScanner: NSScanner = NSScanner(string: textToScan)
-                        while textScanner.string != "" {
-                            if (textScanner.string as NSString).substringToIndex(1) == "\"" {
-                                textScanner.scanLocation += 1
-                                textScanner.scanUpToString("\"", intoString: &value)
-                                textScanner.scanLocation += 1
-                            } else {
-                                textScanner.scanUpToString(delimiter, intoString: &value)
-                            }
-                            
-                            // Store the value into the values array
-                            values.append(value as! String)
-                            
-                            // Retrieve the unscanned remainder of the string
-                            if textScanner.scanLocation < textScanner.string.characters.count {
-                                textToScan = (textScanner.string as NSString).substringFromIndex(textScanner.scanLocation + 1)
-                            } else {
-                                textToScan = ""
-                            }
-                            textScanner = NSScanner(string: textToScan)
-                        }
-                        // For a line without double quotes, we can simply seperate the string
-                        // by using the delimiter (e.g. comma)
-                    } else {
-                        values = line.componentsSeparatedByString(delimiter)
-                    }
-                    
-                    // Put the values into the tuple and add it to the items array
-                    let item = (name: values[0], detail: values[1], price: values[2])
-                    items?.append(item)
-                }
-            }
-        } catch {
-            print(error)
-        }
-       
-        return items
-    }
-    
- 
-    func preloadData () {
-        // Retrieve data from the source file
-       
-    }
-    
-    func removeData () {
-        // Remove the existing items
-
-        
-    }
     
     
     
@@ -91,7 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
         preloadData()
+        
         return true
     }
 
@@ -179,6 +113,130 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    // parsing CSV
+    func parseCSV (contentsOfURL: NSURL, encoding: NSStringEncoding) -> [(name:String, detail:String, price: String)]? {
+        // Load the CSV file and parse it
+        let delimiter = ","
+        var items:[(name:String, detail:String, price: String)]?
+        
+        do {
+            let content = try String(contentsOfURL: contentsOfURL, encoding: encoding)
+            print(content)
+            items = []
+            let lines: [String] = content.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet()) as [String]
+            
+            for line in lines {
+                var values: [String] = []
+                if line != "" {
+                    // For a line with double quotes
+                    // we use NSScanner to perform the parsing
+                    if line.rangeOfString("\"") != nil {
+                        var textToScan: String = line
+                        var value: NSString?
+                        var textScanner: NSScanner = NSScanner(string: textToScan)
+                        while textScanner.string != "" {
+                            if (textScanner.string as NSString).substringToIndex(1) == "\"" {
+                                textScanner.scanLocation += 1
+                                textScanner.scanUpToString("\"", intoString: &value)
+                                textScanner.scanLocation += 1
+                            } else {
+                                textScanner.scanUpToString(delimiter, intoString: &value)
+                            }
+                            
+                            // Store the value into the values array
+                            values.append(value as! String)
+                            
+                            // Retrieve the unscanned remainder of the string
+                            if textScanner.scanLocation < textScanner.string.characters.count {
+                                textToScan = (textScanner.string as NSString).substringFromIndex(textScanner.scanLocation + 1)
+                            } else {
+                                textToScan = ""
+                            }
+                            textScanner = NSScanner(string: textToScan)
+                        }
+                        // For a line without double quotes, we can simply seperate the string
+                        // by using the delimiter (e.g. comma)
+                    } else {
+                        values = line.componentsSeparatedByString(delimiter)
+                    }
+                    
+                    // Put the values into the tuple and add it to the items array
+                    let item = (name: values[0], detail: values[1], price: values[2])
+                    items?.append(item)
+                }
+            }
+        } catch {
+            print(error)
+        }
+        
+        return items
+    }
+    
+    // preload Data
+    func preloadData () {
+        // Load the data file. For any reasons it can't be loaded, we just return
+        guard let remoteURL = NSURL(string: "https://googledrive.com/host/0ByZhaKOAvtNGTHhXUUpGS3VqZnM/menudata.csv") else {
+            return
+        }
+        
+        // remove all the menu items before preloading
+        removeData()
+        
+        if let items = parseCSV(remoteURL, encoding: NSUTF8StringEncoding) {
+            // Preload the menu items
+            for item in items {
+                let menuItem = NSEntityDescription.insertNewObjectForEntityForName("MenuItem", inManagedObjectContext: managedObjectContext) as! MenuItem
+                menuItem.name = item.name
+                menuItem.detail = item.detail
+                menuItem.price = (item.price as NSString).doubleValue
+                
+                do {
+                    try managedObjectContext.save()
+                } catch {
+                    print(error)
+                }
+            }
+        }
+        
+    }
+    
+    // remove data
+    func removeData () {
+        // Remove the existing items
+        let fetchRequest = NSFetchRequest(entityName: "MenuItem")
+        
+        do {
+            let menuItems = try managedObjectContext.executeFetchRequest(fetchRequest) as! [MenuItem]
+            for menuItem in menuItems {
+                managedObjectContext.deleteObject(menuItem)
+            }
+        } catch {
+            print(error)
+        }
+        
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 }
 
