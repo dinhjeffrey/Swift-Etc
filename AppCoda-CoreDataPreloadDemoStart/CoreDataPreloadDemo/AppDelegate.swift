@@ -23,8 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-        preloadData()
+        print(applicationDocumentsDirectory.path)
+        //preloadData()
         
         return true
     }
@@ -70,6 +70,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Create the coordinator and store
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("CoreDataDemo.sqlite")
+        
+        // Load the existing database
+        if !NSFileManager.defaultManager().fileExistsAtPath(url.path!) {
+            let sourceSqliteURLs = [NSBundle.mainBundle().URLForResource("CoreDataDemo", withExtension: "sqlite")!, NSBundle.mainBundle().URLForResource("CoreDataDemo", withExtension: "sqlite-wal")!, NSBundle.mainBundle().URLForResource("CoreDataDemo", withExtension: "sqlite-shm")!]
+            let destSqliteURLs = [self.applicationDocumentsDirectory.URLByAppendingPathComponent("CoreDataDemo.sqlite"), self.applicationDocumentsDirectory.URLByAppendingPathComponent("CoreDataDemo.sqlite-wal"), self.applicationDocumentsDirectory.URLByAppendingPathComponent("CoreDataDemo.sqlite-shm")]
+            var error: NSError? = nil
+            for index in 0 ..< sourceSqliteURLs.count {
+                do {
+                    try NSFileManager.defaultManager().copyItemAtURL(sourceSqliteURLs[index], toURL: destSqliteURLs[index])
+                } catch {
+                    print(error)
+                }
+            }
+        }
+
         var failureReason = "There was an error creating or loading the application's saved data."
         do {
             try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
@@ -176,14 +191,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // preload Data
     func preloadData () {
         // Load the data file. For any reasons it can't be loaded, we just return
+        // REMOTE URL
         guard let remoteURL = NSURL(string: "https://googledrive.com/host/0ByZhaKOAvtNGTHhXUUpGS3VqZnM/menudata.csv") else {
             return
         }
+        // LOCAL URL
+        let localURL = NSBundle.mainBundle().URLForResource("menudata", withExtension: "csv")
         
         // remove all the menu items before preloading
         removeData()
         
-        if let items = parseCSV(remoteURL, encoding: NSUTF8StringEncoding) {
+        if let items = parseCSV(localURL!, encoding: NSUTF8StringEncoding) {
             // Preload the menu items
             for item in items {
                 let menuItem = NSEntityDescription.insertNewObjectForEntityForName("MenuItem", inManagedObjectContext: managedObjectContext) as! MenuItem

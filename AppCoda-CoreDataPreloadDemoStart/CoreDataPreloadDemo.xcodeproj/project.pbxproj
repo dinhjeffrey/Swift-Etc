@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00AD3C281D34285B006B8751 /* CoreDataDemo.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 00AD3C251D34285B006B8751 /* CoreDataDemo.sqlite */; };
+		00AD3C291D34285B006B8751 /* CoreDataDemo.sqlite-shm in Resources */ = {isa = PBXBuildFile; fileRef = 00AD3C261D34285B006B8751 /* CoreDataDemo.sqlite-shm */; };
+		00AD3C2A1D34285B006B8751 /* CoreDataDemo.sqlite-wal in Resources */ = {isa = PBXBuildFile; fileRef = 00AD3C271D34285B006B8751 /* CoreDataDemo.sqlite-wal */; };
 		F409E9561B02FFBF007BAB5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F409E9551B02FFBF007BAB5E /* AppDelegate.swift */; };
 		F409E95B1B02FFBF007BAB5E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F409E9591B02FFBF007BAB5E /* Main.storyboard */; };
 		F409E95D1B02FFBF007BAB5E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F409E95C1B02FFBF007BAB5E /* Images.xcassets */; };
@@ -30,6 +33,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00AD3C251D34285B006B8751 /* CoreDataDemo.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = CoreDataDemo.sqlite; sourceTree = "<group>"; };
+		00AD3C261D34285B006B8751 /* CoreDataDemo.sqlite-shm */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CoreDataDemo.sqlite-shm"; sourceTree = "<group>"; };
+		00AD3C271D34285B006B8751 /* CoreDataDemo.sqlite-wal */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CoreDataDemo.sqlite-wal"; sourceTree = "<group>"; };
 		F409E9501B02FFBF007BAB5E /* CoreDataPreloadDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataPreloadDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F409E9541B02FFBF007BAB5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F409E9551B02FFBF007BAB5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +92,9 @@
 			isa = PBXGroup;
 			children = (
 				F409E9551B02FFBF007BAB5E /* AppDelegate.swift */,
+				00AD3C251D34285B006B8751 /* CoreDataDemo.sqlite */,
+				00AD3C261D34285B006B8751 /* CoreDataDemo.sqlite-shm */,
+				00AD3C271D34285B006B8751 /* CoreDataDemo.sqlite-wal */,
 				F409E9591B02FFBF007BAB5E /* Main.storyboard */,
 				F409E95C1B02FFBF007BAB5E /* Images.xcassets */,
 				F409E95E1B02FFBF007BAB5E /* LaunchScreen.xib */,
@@ -205,10 +214,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00AD3C291D34285B006B8751 /* CoreDataDemo.sqlite-shm in Resources */,
 				F409E95B1B02FFBF007BAB5E /* Main.storyboard in Resources */,
+				00AD3C2A1D34285B006B8751 /* CoreDataDemo.sqlite-wal in Resources */,
 				F409E9B01B034B9E007BAB5E /* menudata.csv in Resources */,
 				F409E9601B02FFBF007BAB5E /* LaunchScreen.xib in Resources */,
 				F409E95D1B02FFBF007BAB5E /* Images.xcassets in Resources */,
+				00AD3C281D34285B006B8751 /* CoreDataDemo.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
