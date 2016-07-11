@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class ArticleController: UITableViewController {
     let screenWidth: CGFloat = UIScreen.mainScreen().bounds.width
@@ -16,6 +17,14 @@ class ArticleController: UITableViewController {
     
     // The currentArticle variable is used to hold the article being displayed. The initializeArticle() method helps setup the article details, and it initializes a sample article after the view has finished loading.
     var currentArticle: Article?
+    /*
+     1.	A variable to hold the Article Menu
+     2.	A boolean to check whether the Article Menu is hidden
+     3.	A variable to be used for hiding the menu on scroll later
+     */
+    var articleMenu: ArticleMenuView?
+    var articleMenuHidden = false
+    var lastContentOffset: CGFloat = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +35,25 @@ class ArticleController: UITableViewController {
         
         initializeArticle()
         addFooterView()
+    }
+    // In the above code, we invoke the addArticleMenu() method in ViewDidAppear(), so that we bring up the article menu when the article appears. Conversely, we call the removeArticleMenu() method after the article disappears. We also implement the scrollViewDidScroll method to hide the article menu when the user scrolls down the article view. And we will unhide the article menu when the user scrolls up again.
+    override func viewDidAppear(animated: Bool) {
+        addArticleMenu()
+    }
+    override func viewWillDisappear(animated: Bool) {
+        removeArticleMenu()
+    }
+    override func scrollViewDidScroll(scrollView: UIScrollView) {
+        if let menu = articleMenu {
+            if lastContentOffset < 0.0 {
+                // do nothing
+            } else if lastContentOffset > scrollView.contentOffset.y {
+                unhideArticleMenu(menu)
+            } else if lastContentOffset < scrollView.contentOffset.y {
+                hideArticleMenu(menu)
+            }
+            lastContentOffset = scrollView.contentOffset.y
+        }
     }
     
     func initializeArticle() {
@@ -53,7 +81,7 @@ class ArticleController: UITableViewController {
          The second section is for the article title, plus the main content.
          The rest of the section is for the subcontents.
          Therefore, the total number of rows is 2 + article.subContents.count.
-        */
+         */
         if let article = currentArticle {
             return 2 + article.subContents.count
         } else {
@@ -75,7 +103,7 @@ class ArticleController: UITableViewController {
         let paraStyle = NSMutableParagraphStyle()
         paraStyle.lineSpacing = 7
         let attrs = [NSFontAttributeName: UIFont.systemFontOfSize(15),
-                            NSParagraphStyleAttributeName: paraStyle]
+                     NSParagraphStyleAttributeName: paraStyle]
         let attrContent = NSMutableAttributedString(string: text, attributes: attrs)
         return attrContent
     }
@@ -144,9 +172,57 @@ class ArticleController: UITableViewController {
             footerView.displayNameLabel.text = name
             footerView.usernameLabel.text = "@\(username)"
         }
+        
+        if let lat = currentArticle?.restaurantLatitude, lng = currentArticle?.restaurantLongitude {
+            let location = CLLocation(latitude: lat, longitude: lng)
+            let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 250.0, 250.0)
+            footerView.mapView.setRegion(coordinateRegion, animated: false)
+            
+            let pin = MKPointAnnotation()
+            pin.coordinate = location.coordinate
+            footerView.mapView.addAnnotation(pin)
+        }
         tableView.tableFooterView = footerView
     }
- 
+    func addArticleMenu() {
+        if articleMenu == nil {
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            let menuView = NSBundle.mainBundle().loadNibNamed("ArticleMenuView", owner: self, options: nil)[0] as! ArticleMenuView
+            menuView.frame = CGRectMake(0, screenHeight - 70, screenWidth, 70)
+            menuView.blurView.layer.cornerRadius = 3
+            menuView.blurView.layer.masksToBounds = true
+            
+            appDelegate.window?.addSubview(menuView)
+            menuView.slideInFromBottom()
+            
+            articleMenu = menuView
+        }
+    }
+    func hideArticleMenu(menu: UIView) {
+        if !articleMenuHidden {
+            UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+                menu.frame = CGRectMake(0, self.screenHeight, self.screenWidth, 70)
+                }, completion: { finished in
+                    self.articleMenuHidden = true
+            })
+        }
+    }
+    func unhideArticleMenu(menu: UIView) {
+        if articleMenuHidden {
+            UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+                menu.frame = CGRectMake(0, self.screenHeight - 70, self.screenWidth, 70)
+                }, completion: { finished in
+                    self.articleMenuHidden = false
+            })
+        }
+    }
+    func removeArticleMenu() {
+        if let menu = articleMenu {
+            menu.removeFromSuperview()
+            self.articleMenu = nil
+        }
+    }
+    
     
     
     

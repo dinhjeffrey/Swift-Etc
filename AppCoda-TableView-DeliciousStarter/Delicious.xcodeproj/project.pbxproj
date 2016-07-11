@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		009AE54C1D32F27D007E5010 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009AE54B1D32F27D007E5010 /* Article.swift */; };
 		009AE54E1D32F28F007E5010 /* SubContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009AE54D1D32F28F007E5010 /* SubContent.swift */; };
+		009AE5501D331479007E5010 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 009AE54F1D331479007E5010 /* MapKit.framework */; };
+		00AD3BFA1D33176A006B8751 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AD3BF91D33176A006B8751 /* UIViewExtension.swift */; };
 		142E3BD81CD99CF80020BD0D /* CoverPhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142E3BD71CD99CF80020BD0D /* CoverPhotoTableViewCell.swift */; };
 		142E3BDA1CD99D1D0020BD0D /* MainContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142E3BD91CD99D1D0020BD0D /* MainContentTableViewCell.swift */; };
 		142E3BDC1CD99D3C0020BD0D /* SubContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142E3BDB1CD99D3C0020BD0D /* SubContentTableViewCell.swift */; };
@@ -45,6 +47,8 @@
 /* Begin PBXFileReference section */
 		009AE54B1D32F27D007E5010 /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Article.swift; path = delicious/Models/Article.swift; sourceTree = SOURCE_ROOT; };
 		009AE54D1D32F28F007E5010 /* SubContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubContent.swift; path = delicious/Models/SubContent.swift; sourceTree = SOURCE_ROOT; };
+		009AE54F1D331479007E5010 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		00AD3BF91D33176A006B8751 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewExtension.swift; path = ../delicious/UIViewExtension.swift; sourceTree = "<group>"; };
 		142E3BD71CD99CF80020BD0D /* CoverPhotoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverPhotoTableViewCell.swift; sourceTree = "<group>"; };
 		142E3BD91CD99D1D0020BD0D /* MainContentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainContentTableViewCell.swift; sourceTree = "<group>"; };
 		142E3BDB1CD99D3C0020BD0D /* SubContentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubContentTableViewCell.swift; sourceTree = "<group>"; };
@@ -72,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				009AE5501D331479007E5010 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,6 +111,7 @@
 		144CF1311CD0A636007A8BB1 = {
 			isa = PBXGroup;
 			children = (
+				009AE54F1D331479007E5010 /* MapKit.framework */,
 				144CF13C1CD0A636007A8BB1 /* Delicious */,
 				144CF1511CD0A636007A8BB1 /* DeliciousTests */,
 				144CF15C1CD0A636007A8BB1 /* DeliciousUITests */,
@@ -130,6 +136,7 @@
 				144CF16C1CD0A668007A8BB1 /* Views */,
 				144CF16D1CD0A66D007A8BB1 /* Controllers */,
 				144CF1411CD0A636007A8BB1 /* Main.storyboard */,
+				00AD3BF91D33176A006B8751 /* UIViewExtension.swift */,
 				009AE54A1D32F136007E5010 /* Supporting Files */,
 			);
 			path = Delicious;
@@ -252,6 +259,11 @@
 				TargetAttributes = {
 					144CF1391CD0A636007A8BB1 = {
 						CreatedOnToolsVersion = 7.3;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					144CF14D1CD0A636007A8BB1 = {
 						CreatedOnToolsVersion = 7.3;
@@ -317,6 +329,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00AD3BFA1D33176A006B8751 /* UIViewExtension.swift in Sources */,
 				142E3BDE1CD99D7D0020BD0D /* ArticleFooterView.swift in Sources */,
 				142E3BDA1CD99D1D0020BD0D /* MainContentTableViewCell.swift in Sources */,
 				142E3BD81CD99CF80020BD0D /* CoverPhotoTableViewCell.swift in Sources */,
