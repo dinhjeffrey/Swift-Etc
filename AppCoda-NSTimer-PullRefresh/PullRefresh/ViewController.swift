@@ -16,6 +16,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var refreshControl: UIRefreshControl!
     var customView: UIView!
     var labelsArray: Array<UILabel> = []
+    var timer: NSTimer!
     /*
      The isAnimating flag (obviously) indicates whether the custom animation is taking place or not. We’ll use it so we know if we can start a new animation or not (apparently, we don’t want a second animation process to begin while another one has already started).
      The currentColorIndex will be used to another custom function we’ll implement. In this function, we’ll have an array of colors (the text colors actually), and this property will indicate the next color that should be applied to the appropriate label.
@@ -131,6 +132,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         if refreshControl.refreshing {
             if !isAnimating {
+                doSomething()
                 animateRefreshStep1()
             }
         }
@@ -147,6 +149,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         currentColorIndex += 1
         
         return returnColor
+    }
+    
+    func doSomething() {
+        timer = NSTimer.scheduledTimerWithTimeInterval(4.0, target: self, selector: "endOfWork", userInfo: nil, repeats: true)
+    }
+    
+    func endOfWork() {
+        refreshControl.endRefreshing()
+        
+        timer.invalidate()
+        timer = nil
     }
 
 
