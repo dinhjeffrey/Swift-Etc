@@ -96,11 +96,11 @@
 				5F580F331A7B868E000994B8 /* Main.storyboard */,
 				5F580F361A7B868E000994B8 /* Images.xcassets */,
 				5F580F381A7B868E000994B8 /* LaunchScreen.xib */,
-				5F580F2D1A7B868E000994B8 /* Supporting Files */,
 				5F580F591A7BD216000994B8 /* ExampleIViewController.swift */,
 				5F580F5B1A7BD22D000994B8 /* ExampleIIViewController.swift */,
 				5F580F5D1A7BD24C000994B8 /* ExampleIIIViewController.swift */,
 				5F580F5F1A7BD264000994B8 /* ExampleIVViewController.swift */,
+				5F580F2D1A7B868E000994B8 /* Supporting Files */,
 			);
 			path = "View Animations Demo";
 			sourceTree = "<group>";
@@ -174,7 +174,8 @@
 		5F580F221A7B868E000994B8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = Appcoda;
 				TargetAttributes = {
 					5F580F291A7B868E000994B8 = {
@@ -299,6 +300,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -362,6 +364,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "View Animations Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.appcoda.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -372,6 +375,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "View Animations Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.appcoda.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -390,6 +394,7 @@
 				);
 				INFOPLIST_FILE = "View Animations DemoTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.appcoda.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/View Animations Demo.app/View Animations Demo";
 			};
@@ -405,6 +410,7 @@
 				);
 				INFOPLIST_FILE = "View Animations DemoTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.appcoda.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/View Animations Demo.app/View Animations Demo";
 			};
