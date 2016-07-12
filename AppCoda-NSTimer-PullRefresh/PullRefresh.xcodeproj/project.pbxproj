@@ -79,12 +79,8 @@
 		C07F5C731B22CF12001A33E7 /* PullRefresh */ = {
 			isa = PBXGroup;
 			children = (
-				C07F5C761B22CF12001A33E7 /* AppDelegate.swift */,
 				C07F5C781B22CF12001A33E7 /* ViewController.swift */,
 				C07F5C7A1B22CF12001A33E7 /* Main.storyboard */,
-				C07F5C961B22D05A001A33E7 /* RefreshContents.xib */,
-				C07F5C7D1B22CF12001A33E7 /* Images.xcassets */,
-				C07F5C7F1B22CF12001A33E7 /* LaunchScreen.xib */,
 				C07F5C741B22CF12001A33E7 /* Supporting Files */,
 			);
 			path = PullRefresh;
@@ -93,6 +89,10 @@
 		C07F5C741B22CF12001A33E7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C07F5C761B22CF12001A33E7 /* AppDelegate.swift */,
+				C07F5C961B22D05A001A33E7 /* RefreshContents.xib */,
+				C07F5C7D1B22CF12001A33E7 /* Images.xcassets */,
+				C07F5C7F1B22CF12001A33E7 /* LaunchScreen.xib */,
 				C07F5C751B22CF12001A33E7 /* Info.plist */,
 			);
 			name = "Supporting Files";
