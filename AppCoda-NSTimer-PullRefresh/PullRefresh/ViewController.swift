@@ -13,6 +13,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var tblDemo: UITableView!
     
     var dataArray: Array<String> = ["One", "Two", "Three", "Four", "Five"]
+    var refreshControl: UIRefreshControl!
     
     
     override func viewDidLoad() {
@@ -20,6 +21,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         tblDemo.delegate = self
         tblDemo.dataSource = self
+        refreshControl = UIRefreshControl()
+        tblDemo.addSubview(refreshControl)
     }
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -28,7 +31,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return dataArray.count
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("idCell", forIndexPath: indexPath) 
+        let cell = tableView.dequeueReusableCellWithIdentifier("idCell", forIndexPath: indexPath)
         
         cell.textLabel!.text = dataArray[indexPath.row]
         
