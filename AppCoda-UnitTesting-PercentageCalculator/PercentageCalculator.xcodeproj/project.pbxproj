@@ -56,6 +56,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		001C81071D3506D400542432 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				22325BB71C62395E006879FF /* AppDelegate.swift */,
+				22325BBE1C62395E006879FF /* Assets.xcassets */,
+				22325BC01C62395E006879FF /* LaunchScreen.storyboard */,
+				22325BC31C62395E006879FF /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		22325BAB1C62395E006879FF = {
 			isa = PBXGroup;
 			children = (
@@ -77,12 +88,9 @@
 		22325BB61C62395E006879FF /* PercentageCalculator */ = {
 			isa = PBXGroup;
 			children = (
-				22325BB71C62395E006879FF /* AppDelegate.swift */,
+				001C81071D3506D400542432 /* Supporting Files */,
 				22325BB91C62395E006879FF /* ViewController.swift */,
 				22325BBB1C62395E006879FF /* Main.storyboard */,
-				22325BBE1C62395E006879FF /* Assets.xcassets */,
-				22325BC01C62395E006879FF /* LaunchScreen.storyboard */,
-				22325BC31C62395E006879FF /* Info.plist */,
 			);
 			path = PercentageCalculator;
 			sourceTree = "<group>";
@@ -386,6 +394,7 @@
 				22325BD31C62395E006879FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		22325BD41C62395E006879FF /* Build configuration list for PBXNativeTarget "PercentageCalculatorTests" */ = {
 			isa = XCConfigurationList;
@@ -394,6 +403,7 @@
 				22325BD61C62395E006879FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
