@@ -28,6 +28,7 @@ class EditNoteViewController: UIViewController, UIImagePickerControllerDelegate,
     var imageURL: NSURL!
     let documentsDirectoryPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
     let tempImageName = "temp_image.jpg"
+    var editedNoteRecord: CKRecord!
     
     
     override func viewDidLoad() {
@@ -42,6 +43,20 @@ class EditNoteViewController: UIViewController, UIImagePickerControllerDelegate,
         let swipeDownGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(EditNoteViewController.handleSwipeDownGestureRecognizer(_:)))
         swipeDownGestureRecognizer.direction = UISwipeGestureRecognizerDirection.Down
         view.addGestureRecognizer(swipeDownGestureRecognizer)
+        
+        if let editedNote = editedNoteRecord {
+            txtNoteTitle.text = editedNote.valueForKey("noteTitle") as! String
+            textView.text = editedNote.valueForKey("noteText") as! String
+            let imageAsset: CKAsset = editedNote.valueForKey("noteImage") as! CKAsset
+            imageView.image = UIImage(contentsOfFile: imageAsset.fileURL.path!)
+            imageView.contentMode = UIViewContentMode.ScaleAspectFit
+            
+            imageURL = imageAsset.fileURL
+            
+            imageView.hidden = false
+            btnRemoveImage.hidden = false
+            btnSelectPhoto.hidden = true
+        }
     }
 
     
@@ -62,15 +77,7 @@ class EditNoteViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     
     // MARK: IBAction method implementation
@@ -113,13 +120,19 @@ class EditNoteViewController: UIViewController, UIImagePickerControllerDelegate,
         // 2. We’ll split it to the integer and decimal parts.
        // 3.  We’ll use the integer part as the identifier of the new record.
         
-        let timestampAsString = String(format: "%f", NSDate.timeIntervalSinceReferenceDate())
-        let timestampParts = timestampAsString.componentsSeparatedByString(".")
-        print(timestampParts)
-        // As you can see, we created a new CKRecordID object named noteID. This is the key of the new record, and we’ll use it right next. In the following part, we create a new CKRecord object, and we set to it all the data we want to be saved, except for the image. We’ll see that in a while.
-        let noteID = CKRecordID(recordName: timestampParts[0])
+        var noteRecord: CKRecord!
         
-        let noteRecord = CKRecord(recordType: "Notes", recordID: noteID)
+        if let editedNote = editedNoteRecord {
+            noteRecord = editedNote
+        } else {
+            let timestampAsString = String(format: "%f", NSDate.timeIntervalSinceReferenceDate())
+            let timestampParts = timestampAsString.componentsSeparatedByString(".")
+            print(timestampParts)
+            // As you can see, we created a new CKRecordID object named noteID. This is the key of the new record, and we’ll use it right next. In the following part, we create a new CKRecord object, and we set to it all the data we want to be saved, except for the image. We’ll see that in a while.
+            let noteID = CKRecordID(recordName: timestampParts[0])
+            
+            noteRecord = CKRecord(recordType: "Notes", recordID: noteID)
+        }
         
         noteRecord.setObject(txtNoteTitle.text, forKey: "noteTitle")
         noteRecord.setObject(textView.text, forKey: "noteText")
@@ -137,7 +150,7 @@ class EditNoteViewController: UIViewController, UIImagePickerControllerDelegate,
         // In the next step, we must specify the container that is used by the app (in this case is the default container), and then the desired database. According to what I said to the introduction, there are two kinds of databases: A public and a private. In this demo, we’ll use the private one. Here’s how we can achieve what I just said:
         let container = CKContainer.defaultContainer()
         let privateDatabase = container.privateCloudDatabase
-        
+    
         privateDatabase.saveRecord(noteRecord) { (record, error) in
             if error != nil {
                 print(error)
