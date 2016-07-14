@@ -10,6 +10,11 @@ import UIKit
 import QuartzCore
 import CloudKit
 
+// As you see, that method accepts two parameters. The noteRecord is the actual CKRecord object we’ll pass to the ListNotesViewController class. The second one indicates whether the record is new, or an edited one. This is an important information for the app, because if the record is new, it will just append it to the arrNotes array. If it’s an edited one, then it will replace the proper CKRecord object to the arrNotes array
+protocol EditNoteViewControllerDelegate {
+    func didSaveNote(noteRecrod: CKRecord, wasEditingNote: Bool)
+}
+
 
 class EditNoteViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -29,6 +34,7 @@ class EditNoteViewController: UIViewController, UIImagePickerControllerDelegate,
     let documentsDirectoryPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
     let tempImageName = "temp_image.jpg"
     var editedNoteRecord: CKRecord!
+    var delegate: EditNoteViewControllerDelegate!
     
     
     override func viewDidLoad() {
@@ -45,7 +51,7 @@ class EditNoteViewController: UIViewController, UIImagePickerControllerDelegate,
         view.addGestureRecognizer(swipeDownGestureRecognizer)
         
         if let editedNote = editedNoteRecord {
-            txtNoteTitle.text = editedNote.valueForKey("noteTitle") as! String
+            txtNoteTitle.text = editedNote.valueForKey("noteTitle") as? String
             textView.text = editedNote.valueForKey("noteText") as! String
             let imageAsset: CKAsset = editedNote.valueForKey("noteImage") as! CKAsset
             imageView.image = UIImage(contentsOfFile: imageAsset.fileURL.path!)
@@ -121,9 +127,13 @@ class EditNoteViewController: UIViewController, UIImagePickerControllerDelegate,
        // 3.  We’ll use the integer part as the identifier of the new record.
         
         var noteRecord: CKRecord!
+        // Now, two modifications are required to the saveNote(_:) IBAction method. At first, we need to use a flag to indicate whether that method saves a new or an existing note record. We’ll declare and set the value of that flag in the beginning of the method, where we distinguish whether it’s a new or not record. Right next, you’re given the part of interest, where you can see how the isEditingNote flag is used (note the comments):
+        var isEditingNote: Bool! // Flag declaration
         
         if let editedNote = editedNoteRecord {
             noteRecord = editedNote
+            
+            isEditingNote = true // True because a note record has been edited
         } else {
             let timestampAsString = String(format: "%f", NSDate.timeIntervalSinceReferenceDate())
             let timestampParts = timestampAsString.componentsSeparatedByString(".")
@@ -132,6 +142,7 @@ class EditNoteViewController: UIViewController, UIImagePickerControllerDelegate,
             let noteID = CKRecordID(recordName: timestampParts[0])
             
             noteRecord = CKRecord(recordType: "Notes", recordID: noteID)
+            isEditingNote = false // false because it's a new note record
         }
         
         noteRecord.setObject(txtNoteTitle.text, forKey: "noteTitle")
@@ -154,6 +165,8 @@ class EditNoteViewController: UIViewController, UIImagePickerControllerDelegate,
         privateDatabase.saveRecord(noteRecord) { (record, error) in
             if error != nil {
                 print(error)
+            } else {
+                self.delegate.didSaveNote(noteRecord, wasEditingNote: isEditingNote)
             }
             dispatch_async(dispatch_get_main_queue()) {
                 self.viewWait.hidden = true

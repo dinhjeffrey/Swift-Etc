@@ -9,7 +9,7 @@
 import UIKit
 import CloudKit
 
-class ListNotesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ListNotesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, EditNoteViewControllerDelegate {
 
     @IBOutlet weak var tblNotes: UITableView!
     
@@ -108,10 +108,29 @@ class ListNotesViewController: UIViewController, UITableViewDelegate, UITableVie
         if segue.identifier == "idSegueEditNote" {
             let editNoteViewController = segue.destinationViewController as! EditNoteViewController
             
+            editNoteViewController.delegate = self
+            
             if let index = selectedNoteIndex {
                 editNoteViewController.editedNoteRecord = arrNotes[index]
             }
         }
+    }
+    
+    // Finally, let’s implement the delegate method. As you’ll see, we first check if a new or an existing record was saved. In the first case, we just append it to the arrNotes array. In the second case, we replace the object in the index pointed by the selectedNoteIndex, and then we make that variable nil. At the end, we ensure that the tableview is visible we reload its data:
+    func didSaveNote(noteRecord: CKRecord, wasEditingNote: Bool) {
+        if !wasEditingNote {
+            arrNotes.append(noteRecord)
+        } else {
+            arrNotes.insert(noteRecord, atIndex: selectedNoteIndex)
+            arrNotes.removeAtIndex(selectedNoteIndex + 1)
+            selectedNoteIndex = nil
+        }
+        
+        if tblNotes.hidden {
+            tblNotes.hidden = false
+        }
+        
+        tblNotes.reloadData()
     }
     
     
