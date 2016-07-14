@@ -13,6 +13,17 @@ class ListNotesViewController: UIViewController, UITableViewDelegate, UITableVie
 
     @IBOutlet weak var tblNotes: UITableView!
     
+    /*
+     Let’s get started, but first things first. As always when working with tableviews, we need an array to be the datasource, so, of course, we’ll create one. However, it’s really important to set the proper data type of its contents, because that will make a huge difference to our upcoming work. The best choice is to let that array accept CKRecord objects, and let me tell you why:
+     
+     1. The records we’ll fetch from the iCloud are CKRecord objects, so we can append them straight away to that array.
+     2. We can access all the properties of a CKRecord object directly, especially when we’ll need to display each note details to the tableview.
+     3. Selecting (by tapping) and passing a CKRecord object to the EditNoteViewController class really makes things easy.
+     4. Getting a CKRecord object back from the EditNoteViewController class allows to instantly display its details with no further processing.
+    */
+    var arrNotes: [CKRecord] = []
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

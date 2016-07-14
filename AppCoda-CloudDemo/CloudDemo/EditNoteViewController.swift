@@ -142,7 +142,7 @@ class EditNoteViewController: UIViewController, UIImagePickerControllerDelegate,
             if error != nil {
                 print(error)
             }
-            dispatch_async(dispatch_get_main_queue()) {
+            NSOperationQueue.mainQueue().addOperationWithBlock{ () -> Void in
                 self.viewWait.hidden = true
                 self.navigationController?.setNavigationBarHidden(false, animated: true)
             }
