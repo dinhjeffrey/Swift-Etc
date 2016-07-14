@@ -37,12 +37,23 @@ class ViewController: UIViewController {
         let lazyGravity = UIGravityBehavior()
         return lazyGravity
     }()
-
+    
+    lazy var collider: UICollisionBehavior = {
+        let lazyCollider = UICollisionBehavior()
+        // This line, makes the boundries of our reference view a boundary
+        // for the added items to collide with
+        lazyCollider.translatesReferenceBoundsIntoBoundary = true
+        return lazyCollider
+    }()
+    
+    // This is how our animate function will look like
     func animateSquare() {
-        // 1. Add behaviors to the animator
         animator.addBehavior(gravity)
+        // Add the collider also to the animator
+        animator.addBehavior(collider)
         
-        // 2. Add items to the behavior
+        // add the squareView to both behaviors
+        collider.addItem(squareView)
         gravity.addItem(squareView)
     }
     
