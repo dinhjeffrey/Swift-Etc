@@ -133,6 +133,27 @@ class ListNotesViewController: UIViewController, UITableViewDelegate, UITableVie
         tblNotes.reloadData()
     }
     
+    // In the following tableview delegate method we’ll implement, at first we get the record ID of the record matching to the tapped row. Then, as usual, we specify the container and the database, and finally we make a call to the deleteRecordWithID(…) of the CloudKit. If everything works without errors, we remove the respective object from the arrNotes array, and of course, we update the tableview. Simple things, so let’s see everything at once:
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            let selectedRecordID = arrNotes[indexPath.row].recordID
+            
+            let container = CKContainer.defaultContainer()
+            let privateDatabase = container.privateCloudDatabase
+            
+            privateDatabase.deleteRecordWithID(selectedRecordID) { (recordID, error) in
+                if error != nil {
+                    print(error)
+                } else {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.arrNotes.removeAtIndex(indexPath.row)
+                        self.tblNotes.reloadData()
+                    }
+                }
+            }
+        }
+    }
+    
     
     
     
