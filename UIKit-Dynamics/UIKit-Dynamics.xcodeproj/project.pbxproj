@@ -54,9 +54,9 @@
 		001C81421D37165A00542432 /* UIKit-Dynamics */ = {
 			isa = PBXGroup;
 			children = (
-				001C81551D37166100542432 /* Supporting Files */,
 				001C81451D37165A00542432 /* ViewController.swift */,
 				001C81471D37165A00542432 /* Main.storyboard */,
+				001C81551D37166100542432 /* Supporting Files */,
 			);
 			path = "UIKit-Dynamics";
 			sourceTree = "<group>";

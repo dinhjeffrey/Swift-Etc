@@ -10,16 +10,76 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var animationView: UIView!
+    var squareView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        drawSquare()
+        animateSquare()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func drawSquare() {
+        let squareSize = CGSize(width: 30.0, height: 30.0)
+        let centerPoint = CGPoint(x: self.animationView.bounds.midX - (squareSize.width/2), y: self.animationView.bounds.midY - (squareSize.height/2))
+        let frame = CGRect(origin: centerPoint, size: squareSize)
+        squareView = UIView(frame: frame)
+        squareView.backgroundColor = UIColor.orangeColor()
+        
+        animationView.addSubview(squareView)
     }
+    
+    lazy var animator: UIDynamicAnimator = {
+        return UIDynamicAnimator(referenceView: self.animationView)
+    }()
+    
+    lazy var gravity: UIGravityBehavior = {
+        let lazyGravity = UIGravityBehavior()
+        return lazyGravity
+    }()
 
-
+    func animateSquare() {
+        // 1. Add behaviors to the animator
+        animator.addBehavior(gravity)
+        
+        // 2. Add items to the behavior
+        gravity.addItem(squareView)
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
 
