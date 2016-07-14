@@ -46,15 +46,31 @@ class ViewController: UIViewController {
         return lazyCollider
     }()
     
-    // This is how our animate function will look like
+    lazy var dynamicItemBehavior: UIDynamicItemBehavior = {
+        let lazyBehavior = UIDynamicItemBehavior()
+        // let's make our square elastic
+        // 0 = no elasticity, 1.0 = max elasticity
+        lazyBehavior.elasticity = 0.8
+        
+        // Other configs
+        // lazyBehavior.allowsRotation
+        // lazyBehavior.density
+        // lazyBehavior.friction
+        // lazyBehavior.resistance
+        
+        return lazyBehavior
+    }()
+    
     func animateSquare() {
         animator.addBehavior(gravity)
-        // Add the collider also to the animator
         animator.addBehavior(collider)
+        // add the dynamicItemBehavior to the animator
+        animator.addBehavior(dynamicItemBehavior)
         
-        // add the squareView to both behaviors
         collider.addItem(squareView)
         gravity.addItem(squareView)
+        // and add the squareView to the dynamicItemBehavior
+        dynamicItemBehavior.addItem(squareView)
     }
     
     
