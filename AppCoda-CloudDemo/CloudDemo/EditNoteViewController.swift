@@ -98,6 +98,56 @@ class EditNoteViewController: UIViewController, UIImagePickerControllerDelegate,
     
     
     @IBAction func saveNote(sender: AnyObject) {
+        if txtNoteTitle.text == "" || textView.text == "" {
+            return
+        }
+        // In the EditNoteViewController scene in the Interface Builder, you can find a UIView object with an activity indicator as its subview. That view has been already connected to an IBOutlet property, and it’s named viewWait (for obvious reasons). Right now, this view (along with the indicator) is hidden, so we’ll make it visible, we’ll bring it in front, and that way we’ll prohibit any interaction with the note. But that’s the half way, as it can’t “cover” the navigation bar. The navigation bar is always at the top of any subview, so, further than simply showing the viewWait view, at the same time we’ll hide the bar. Then, when everything is over, we’ll go in the completion handler that exists in the above method, and we’ll bring everything back to normal.
+        
+        viewWait.hidden = false
+        view.bringSubviewToFront(viewWait)
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        
+        // A nice way to ensure that every new record identifier we generate is going to be unique, is to use the current timestamp, which by default is unique. This timestamp is given to us using the timeIntervalSinceReferenceDate() method of the NSDate class, and it’s in the form of abc.def (where abc and def are real digits and more than three of course). Keeping the dot (.) in the identifier is not important, as only the integer part of the number is good for our cause. So what we’ll do is simple:
+        
+        // 1. We’ll get the current timestamp as a String value.
+        // 2. We’ll split it to the integer and decimal parts.
+       // 3.  We’ll use the integer part as the identifier of the new record.
+        
+        let timestampAsString = String(format: "%f", NSDate.timeIntervalSinceReferenceDate())
+        let timestampParts = timestampAsString.componentsSeparatedByString(".")
+        print(timestampParts)
+        // As you can see, we created a new CKRecordID object named noteID. This is the key of the new record, and we’ll use it right next. In the following part, we create a new CKRecord object, and we set to it all the data we want to be saved, except for the image. We’ll see that in a while.
+        let noteID = CKRecordID(recordName: timestampParts[0])
+        
+        let noteRecord = CKRecord(recordType: "Notes", recordID: noteID)
+        
+        noteRecord.setObject(txtNoteTitle.text, forKey: "noteTitle")
+        noteRecord.setObject(textView.text, forKey: "noteText")
+        noteRecord.setObject(NSDate(), forKey: "noteEditedDate")
+        
+        // Let’s handle now the image saving. As I have already mentioned, in case the user has picked an actual image we can proceed as planned. However, if no image has been picked, we’ll provide the default one existing in the app bundle. Note in the next snippet that first we create a CKAsset object (required for assets like images), and then we provide it to the noteRecord object.
+        if let url = imageURL {
+            let imageAsset = CKAsset(fileURL: url)
+            noteRecord.setObject(imageAsset, forKey: "noteImage")
+        } else {
+            let fileURL = NSBundle.mainBundle().URLForResource("no_image", withExtension: "png")
+            let imageAsset = CKAsset(fileURL: fileURL!)
+            noteRecord.setObject(imageAsset, forKey: "noteImage")
+        }
+        // In the next step, we must specify the container that is used by the app (in this case is the default container), and then the desired database. According to what I said to the introduction, there are two kinds of databases: A public and a private. In this demo, we’ll use the private one. Here’s how we can achieve what I just said:
+        let container = CKContainer.defaultContainer()
+        let privateDatabase = container.privateCloudDatabase
+        
+        privateDatabase.saveRecord(noteRecord) { (record, error) in
+            if error != nil {
+                print(error)
+            }
+            dispatch_async(dispatch_get_main_queue()) {
+                self.viewWait.hidden = true
+                self.navigationController?.setNavigationBarHidden(false, animated: true)
+            }
+        }
+        // That’s it. By doing all the above actions, the app can now store data to the iCloud using the CloudKit. Note that the first time a record is saved, a record type is also created automatically (let’s say, the table in the database). It’s important to remember that if you need to change the record data and to add or remove “fields”, you’ll have to delete first the record type in the CloudKit Dashboard platform. We’ll see a few things about the Dashboard in the following part.
     
     }
     
