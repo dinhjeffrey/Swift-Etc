@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00A3AB3B1D3D8C7B001021FA /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A3AB3A1D3D8C7B001021FA /* PinterestLayout.swift */; };
 		7B0AC7BC1AAEF90000885D4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0AC7BB1AAEF90000885D4A /* AppDelegate.swift */; };
 		7B0AC7C11AAEF90000885D4A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B0AC7BF1AAEF90000885D4A /* Main.storyboard */; };
 		7B0AC7C61AAEF90000885D4A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B0AC7C41AAEF90000885D4A /* LaunchScreen.xib */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		00A3AB3A1D3D8C7B001021FA /* PinterestLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
 		7B0AC7B61AAEF90000885D4A /* Pinterest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pinterest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B0AC7BA1AAEF90000885D4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B0AC7BB1AAEF90000885D4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 		7B0AC7DE1AAEF9B600885D4A /* Layouts */ = {
 			isa = PBXGroup;
 			children = (
+				00A3AB3A1D3D8C7B001021FA /* PinterestLayout.swift */,
 			);
 			name = Layouts;
 			sourceTree = "<group>";
@@ -182,6 +185,7 @@
 		7B0AC7AE1AAEF90000885D4A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = "Razeware LLC";
 				TargetAttributes = {
@@ -231,6 +235,7 @@
 				7B0AC7BC1AAEF90000885D4A /* AppDelegate.swift in Sources */,
 				7B0AC7F01AAEFCA500885D4A /* UIImage+Decompression.swift in Sources */,
 				7B0AC7E41AAEFA3100885D4A /* PhotoStreamViewController.swift in Sources */,
+				00A3AB3B1D3D8C7B001021FA /* PinterestLayout.swift in Sources */,
 				7B0AC7EA1AAEFBD900885D4A /* RoundedCornersView.swift in Sources */,
 				7B0AC7EC1AAEFC0B00885D4A /* AnnotatedPhotoCell.swift in Sources */,
 				7B0AC7EE1AAEFC3400885D4A /* Photo.swift in Sources */,
