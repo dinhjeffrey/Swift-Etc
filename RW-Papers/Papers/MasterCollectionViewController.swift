@@ -12,7 +12,8 @@ import UIKit
 class MasterCollectionViewController: UICollectionViewController {
     
     struct Storyboard {
-        static let paperCell = "PaperCell"
+        static let PaperCell = "PaperCell"
+        static let ShowDetail = "Show Detail"
     }
 
     override func viewDidLoad() {
@@ -32,15 +33,25 @@ class MasterCollectionViewController: UICollectionViewController {
     }
 
 
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        if segue.identifier == Storyboard.ShowDetail {
+            if let dvc = segue.destinationViewController as? DetailViewController {
+                dvc.paper = sender as? Paper
+            }
+        }
+        
+
+
+        
+        
     }
-    */
+
 
     // MARK: UICollectionViewDataSource
     
@@ -58,7 +69,7 @@ class MasterCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(Storyboard.paperCell, forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(Storyboard.PaperCell, forIndexPath: indexPath)
     
         // Configure the cell
     
@@ -66,6 +77,12 @@ class MasterCollectionViewController: UICollectionViewController {
     }
 
     // MARK: UICollectionViewDelegate
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if let paper = papersDataSource.paperForItemAtIndexPath(indexPath) {
+            performSegueWithIdentifier(Storyboard.ShowDetail, sender: paper)
+        }
+    }
 
     /*
     // Uncomment this method to specify if the specified item should be highlighted during tracking
@@ -96,4 +113,14 @@ class MasterCollectionViewController: UICollectionViewController {
     }
     */
 
+}
+
+extension UIViewController {
+    var contentViewController: UIViewController {
+        if let navcon = self as? UINavigationController {
+            return navcon.visibleViewController ?? self
+        } else {
+            return self
+        }
+    }
 }
