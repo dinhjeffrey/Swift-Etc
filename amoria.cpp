@@ -1,143 +1,166 @@
-// Insert a node at the head of a linked list
-Node* Insert(Node *head,int data) {
-    // creates new node
-    Node *newNode = new Node;
-    // sets data
-    newNode->data = data;
-    // sets next link
-    newNode->next = head;
-    // updates head to newNode
-    head = newNode;
+// Delete duplicate-value nodes from a sorted linked list
+Node* RemoveDuplicates(Node *head)
+{
+    // if list is empty
+    if (head == NULL) {
+        return NULL;
+    }
+    // set curr
+    Node *curr = head;
+    // loop until end if list
+    while (curr->next != NULL) {
+        // make a new temp each loop
+        Node *temp = curr->next;
+        if (curr->data == temp->data) {
+            // set curr->next to the next after temp
+            curr->next = temp->next;
+            // delete if duplicate found
+            // do not update curr, so doesn't fail at end and doesn't skip triples
+            delete(temp);
+        } else {
+            // loop to next node
+            curr = curr->next;
+        }
+    }
     return head;
 }
 
-// Insert a node at a specific position in a linked list
-Node* InsertNth(Node *head, int data, int position) {
-    // creates a new node
+// Cycle Detection
+bool has_cycle(Node* head) {
+    // Have to create equal to head
+    Node *slow = head;
+    // fast = head->next fails
+    Node *fast = head;
+    // loop through list until cycle found
+    while (fast != NULL) {
+        // if no cycle found, go on to next node
+        slow = slow->next;
+        // set fast to go over 2 loops at a time so will eventually catch up with slow if there is a loop
+        fast = fast->next->next;
+        // cycle found
+        if (fast == slow) {
+            return true;
+        }
+        
+    }
+    // no cycle found
+    return false;
+}
+
+// Find Merge Point of Two Lists
+int length(struct Node *head)
+{
+    // create increment var
+    int len = 0;
+    // create temp
+    Node *temp = head;
+    // loops through entire list and gets count
+    while(temp != NULL) {
+        len += 1;
+        temp = temp->next;
+    }
+    return len;
+}
+int FindMergeNode(Node *headA, Node *headB)
+{
+    // m is list length of headA
+    int m = length(headA);
+    // n is list length of headB
+    int n = length(headB);
+    // difference between m and n
+    int d = m-n;
+    // switch if n > m
+    if(n > m) {
+        Node *temp = headB;
+        headB = headA;
+        headA = temp;
+        d = n-m;
+    }
+    for (int i=0; i<d; i+=1) {
+        headA = headA->next;
+    }
+    // loop through both list which are the same length now
+    while(headA != NULL) {
+        // merge point
+        if (headA->data == headB->data) {
+            return headA->data;
+        }
+        headA = headA->next;
+        headB = headB->next;
+    }
+    // never reaches here but need a return statement
+    return 0;
+}
+
+// Insert a node into a sorted doubly linked list
+Node* SortedInsert(Node *head,int data)
+{
+    // create a new node
     Node *newNode = new Node;
-    // sets data
     newNode->data = data;
-    // sets next
     newNode->next = NULL;
-    // if position is at the beginning
-    if (position == 0) {
+    newNode->prev = NULL;
+    // if empty list
+    if (head == NULL) {
+        head = newNode;
+        return head;
+    }
+    // checks first position
+    if (newNode->data <= head->data) {
+        head->prev = newNode;
         newNode->next = head;
         head = newNode;
         return head;
     }
-    // create a temp to get node at position
-    Node *temp = head;
-    // loop until we get the node right before the position node
-    for(int i=0; i<position-1; i+=1) {
-        temp = temp->next;
+    Node *curr = head;
+    // loop through list and checks correct position to insert
+    while(curr->next != NULL) {
+        if (newNode->data <= curr->data) {
+            // disconnects and connects appropriate links
+            // doesn't matter if setting curr or newNode first
+            curr->prev->next = newNode;
+            newNode->prev = curr->prev;
+            curr->prev = newNode;
+            newNode->next = curr;
+            return head;
+        }
+        // loop to next link
+        curr = curr->next;
     }
-    temp->next = newNode;
-    newNode->next = temp->next->next;
+    // if reaches here, it is at last link. to insert right before last link
+    if (newNode->data < curr->data) {
+        curr->prev->next = newNode;
+        newNode->prev = curr->prev;
+        curr->prev = newNode;
+        newNode->next = curr;
+        
+        return head;
+    }
+    // to insert at the last position
+    curr->next = newNode;
+    newNode->prev = curr;
     return head;
 }
 
-// Delete a Node
-Node* Delete(Node *head, int position)
+// Reverse a doubly linked list
+Node* Reverse(Node* head)
 {
-    // create a temp
-    Node *temp = head;
-    // loop through to node right before position's node
-    for (int i=0; i<position-1; i+=1) {
-        temp = temp->next;
-    }
-    // del is node to delete
-    Node *del = temp->next;
-    temp->next = del->next;
-    delete(del);
-    return head;
-}
-
-// Print in reverse
-void ReversePrint(Node *head)
-{
-    if (head == NULL) {
-        return;
-    }
-    ReversePrint(head->next);
-    cout<<head->data<<endl;
-}
-
-// Reverse a linked list
-Node* Reverse(Node *head)
-{
-    // creates nodes
+    if (head == NULL) return NULL;
     Node *curr, *prev, *next;
-    // sets curr
     curr = head;
-    // sets prev
     prev = NULL;
-    // loops through list until curr is at last node
-    while (curr != NULL) {
+    // loop through list reversing links
+    while(curr->next != NULL) {
         next = curr->next;
         curr->next = prev;
         prev = curr;
         curr = next;
     }
-    head = prev;
+    // at the end
+    curr->next = curr->prev;
+    curr->prev = NULL;
+    head = curr;
     return head;
-}
-
-// Compare two linked lists
-int CompareLists(Node *headA, Node* headB)
-{
-    // to return from recusive
-    if (headA == NULL && headB == NULL) {
-        return true;
-    }
-    if (headA != NULL && headB != NULL) {
-        // recusive function that checks data and loops through each link list
-        return (headA->data == headB->data && CompareLists(headA->next, headB->next));
-    }
-    // hit here if one list is empty
-    return false;
-}
-
-// Merge two sorted linked lists
-Node* MergeLists(Node *headA, Node* headB)
-{
-    // if headA list is empty
-    if (headA == NULL) {
-        return headB;
-    }
-    // if headB list is empty
-    if (headB == NULL) {
-        return headA;
-    }
-    // if the data in headA is smaller
-    if (headA->data <= headB->data) {
-        // execute recursive function
-        // sets next link in headA to recursive function
-        headA->next = MergeLists(headA->next, headB);
-        // populate data in appropriate link after recursive function
-        return headA;
-    } else {
-        headB->next = MergeLists(headA, headB->next);
-        return headB;
-    }
-}
-
-// Get node value
-int GetNode(Node *head,int positionFromTail)
-{
-    // create temp to find total length of list
-    Node *temp = head;
-    int n = 0;
-    // loop until end of list to get total length store in n
-    while (temp->next != NULL) {
-        temp = temp->next;
-        n += 1;
-    }
-    // create temp2 to find value at specified node
-    Node *temp2 = head;
-    for(int i=0; i<(n - positionFromTail); i+=1) {
-        temp2 = temp2->next;
-    }
-    return temp2->data;
 }
 
 
