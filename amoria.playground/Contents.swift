@@ -4,7 +4,7 @@
  */
 import Foundation
 
-// Maximum Element
+// Largest Rectangle
 
 // returns an integer from a line of standard input
 func readInteger() -> Int {
@@ -20,39 +20,48 @@ func readIntegers() -> [Int] {
     return integers
 }
 
-// creates a stack
-var stack = [Int]()
-
-enum Type: Int {
-    case one = 1, two, three
-}
-
-// performs operations on stack depending on input
-func maxElement(input: [Int]) {
-    guard let type = Type(rawValue: input[0]) else { fatalError("unknown type found") }
-    switch type {
-    case .one:
-        let element = input[1]
-        stack.append(element)
-    case .two:
-        stack.removeLast()
-    case .three:
-        guard let maxElement = stack.maxElement() else { fatalError("stack is empty") }
-        print(maxElement)
+func largestRectangle(numBuildings: Int, heightBuildings hist: [Int]) {
+    var maxArea = 0
+    var current = 0
+    var stack = [Int]() // stack of index
+    var top = Int()
+    var areaWithTop = Int()
+    
+    while current < numBuildings {
+        if stack.isEmpty || hist[stack.last!] <= hist[current] {
+            stack.append(current)
+            current += 1
+        } else {
+            top = stack.removeLast()
+            
+            areaWithTop = hist[top] * (stack.isEmpty ? current : current - stack.last! - 1)
+            
+            if maxArea < areaWithTop {
+                maxArea = areaWithTop
+            }
+        }
     }
+    while !stack.isEmpty {
+        top = stack.removeLast()
+        
+        areaWithTop = hist[top] * (stack.isEmpty ? current : current - stack.last! - 1)
+        
+        if maxArea < areaWithTop {
+            maxArea = areaWithTop
+        }
+    }
+    
+    print(maxArea)
 }
 
-// reads inputs and calls maxElement
+
 func inputs() {
-    let numQueries = readInteger()
-    for _ in 0..<numQueries {
-        let input = readIntegers()
-        maxElement(input)
-    }
+    let numBuildings = readInteger()
+    let heightBuildings = readIntegers()
+    largestRectangle(numBuildings, heightBuildings: heightBuildings)
 }
 
 inputs()
-
 
 
 
