@@ -95,6 +95,7 @@ public class LinkedList<T> {
             prev = next
             next = next?.next
         }
+        // assert() after the loop checks whether there really were enough nodes in the list. if i > 1 at this point, then the specified index was too large
         assert(i == 0)
         
         return (prev, next)
@@ -113,6 +114,39 @@ public class LinkedList<T> {
             head = newNode
         }
     }
+    
+    public func removeAll() {
+        head = nil
+        // if theres a tail pointer, set it to nil here too
+    }
+    
+    public func removeNode(node: Node) -> T {
+        let prev = node.previous
+        let next = node.next
+        
+        if let prev = prev {
+            prev.next = next
+        } else {
+            head = next
+        }
+        next?.previous = prev
+        
+        node.previous = nil
+        node.next = nil
+        return node.value
+    }
+    
+    public func removeLast() -> T {
+        assert(!isEmpty)
+        return removeNode(last!)
+    }
+    
+    public func removeAtIndex(index: Int) -> T {
+        let node = nodeAtIndex(index)
+        assert(node != nil)
+        return removeNode(node!)
+    }
+
 }
 
 
@@ -144,11 +178,25 @@ list.nodeAtIndex(0)?.value
 list.nodeAtIndex(1)?.value
 list.nodeAtIndex(2)
 
+list.insert("Swift", atIndex: 1)
 list[0]
 list[1]
-// list[2]
+list[2]
 
 // Note: If any of the loops in this article don't make much sense to you, then draw a linked list on a piece of paper and step through the loop by hand, just like what we did here.
+
+list.removeNode(list.first!)
+list.count
+list[0]
+list[1]
+
+list.removeLast()
+list.count
+list[0]
+
+list.removeAtIndex(0)
+list.count
+
 
 
 
