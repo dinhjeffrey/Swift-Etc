@@ -26,11 +26,11 @@ public class LinkedList<T> {
     }
     
     public var last: Node? {
-//        same as:
-//        var node: Node? = head
-//        while node != nil && node!.next != nil {
-//            node = node!.next
-//        }
+        //        same as:
+        //        var node: Node? = head
+        //        while node != nil && node!.next != nil {
+        //            node = node!.next
+        //        }
         if var node = head {
             while case let next? = node.next { // loops until the last node
                 node = next
@@ -146,7 +146,58 @@ public class LinkedList<T> {
         assert(node != nil)
         return removeNode(node!)
     }
+    
+    public func reverse() {
+        var node = head
+        while let currentNode = node {
+            node = currentNode.next
+            swap(&currentNode.next, &currentNode.previous)
+            head = currentNode
+        }
+    }
+    
+    public func map<U>(transform: T -> U) -> LinkedList<U> {
+        let result = LinkedList<U>()
+        var node = head
+        while node != nil {
+            result.append(transform(node!.value))
+            node = node!.next
+        }
+        return result
+    }
+    
+    public func filter(predicate: T -> Bool) -> LinkedList<T> {
+        let result = LinkedList<T>()
+        var node = head
+        while node != nil {
+            if predicate(node!.value) {
+                result.append(node!.value)
+            }
+            node = node!.next
+        }
+        return result
+    }
+}
 
+extension LinkedList: CustomStringConvertible {
+    public var description: String {
+        var s = "["
+        var node = head
+        while node != nil {
+            s += "\(node!.value)"
+            node = node!.next
+            if node != nil {
+                s += ", "
+            }
+        }
+        return s + "]"
+    }
+}
+
+// Alternative value semantics
+enum ListNode<T> {
+    indirect case Node(T, next: ListNode<T>)
+    case End
 }
 
 
@@ -197,7 +248,9 @@ list[0]
 list.removeAtIndex(0)
 list.count
 
-
+list.append("Hello")
+list.append("Kitty")
+list.description
 
 
 
